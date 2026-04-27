@@ -7,6 +7,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green.svg)](https://fastapi.tiangolo.com/)
+[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Last Commit](https://img.shields.io/github/last-commit/Jhingun1/Cryptocomply)](https://github.com/Jhingun1/Cryptocomply/commits)
+[![Stars](https://img.shields.io/github/stars/Jhingun1/Cryptocomply?style=social)](https://github.com/Jhingun1/Cryptocomply/stargazers)
 
 </div>
 
@@ -15,139 +19,120 @@ targeting small crypto and fintech startups (stablecoin apps, DeFi dashboards, p
 
 ---
 
-## Table of Contents
+## 📖 Table of Contents
 
-1. [Features](#features)
-2. [Project Structure](#project-structure)
-3. [Setup & Installation](#setup--installation)
-4. [Running the API](#running-the-api)
-5. [API Reference](#api-reference)
-6. [API Examples](#api-examples)
-7. [Extending Custom Rules](#extending-custom-rules)
-8. [Blockchain Integration](#blockchain-integration)
-9. [License](#license)
+1. [✨ Features](#-features)
+2. [🎯 Who is this for?](#-who-is-this-for)
+3. [🧠 Architecture](#-architecture)
+4. [🚀 Quick Start](#-quick-start)
+5. [📡 API Reference](#-api-reference)
+6. [📋 API Examples](#-api-examples)
+7. [⚙️ Configuration](#️-configuration)
+8. [🔌 Integrations](#-integrations)
+9. [🔧 Extending Custom Rules](#-extending-custom-rules)
+10. [⛓️ Blockchain Integration](#️-blockchain-integration)
+11. [🧪 Testing](#-testing)
+12. [🗺️ Roadmap](#️-roadmap)
+13. [🤝 Contributing](#-contributing)
+14. [📄 License](#-license)
+15. [💖 Support](#-support)
 
 ---
 
-## Features
+## ✨ Features
 
 <div align="center">
   <img src="assets/features.png" alt="CryptoComply feature blocks" width="90%"/>
 </div>
 <br/>
 
+- ✅ **JSON-based risk rules** – velocity checks, thresholds, country risk, address blacklists
+- ✅ **Modular rules engine** – add custom rules without changing core code
+- ✅ **Free blockchain clients** – Etherscan & BSCScan (plug-in architecture for others)
+- ✅ **KYC/KYB stub** – drop-in replacement for real providers (Sumsub, Persona)
+- ✅ **Webhook alerts** – real-time notifications for flagged transactions
+- ✅ **Docker support** – one-command deploy
+- ✅ **Open source (MIT)** – auditable, extensible, no vendor lock-in
+
 | Module | Description |
 |--------|-------------|
 | **Rules Engine** | JSON-configurable risk scoring: velocity checks, amount thresholds, suspicious-address blocklist, country risk |
-| **Transaction Monitoring** | `POST /transactions/score` scores any transaction 0-100 and returns triggered alerts |
+| **Transaction Monitoring** | `POST /transactions/score` scores any transaction 0–100 and returns triggered alerts |
 | **Alerts Feed** | `GET /transactions/alerts` returns recent flagged transactions |
 | **KYC/KYB Stub** | In-memory identity verification simulation; swappable for a real provider |
 | **Blockchain Client** | Fetches transaction history from Etherscan or BSCScan (free API tier) |
 
 ---
 
-## Project Structure
+## 🎯 Who is this for?
 
-```
-CryptoComply/
-├── app/
-│   ├── rules/
-│   │   ├── __init__.py
-│   │   ├── engine.py               # Core rule evaluation logic
-│   │   ├── rules.json              # Rule definitions (velocity, threshold, etc.)
-│   │   ├── suspicious_addresses.csv# Known mixer / sanctioned addresses
-│   │   └── country_risk.json       # ISO country risk levels (1-3)
-│   ├── monitoring/
-│   │   ├── __init__.py
-│   │   ├── router.py               # FastAPI endpoints for scoring & alerts
-│   │   ├── scorer.py               # Aggregates rule matches into a risk score
-│   │   └── store.py                # In-memory transaction & alert store
-│   ├── kyc/
-│   │   ├── __init__.py
-│   │   ├── router.py               # FastAPI endpoints for KYC
-│   │   └── verifier.py             # In-memory KYC stub
-│   ├── blockchain/
-│   │   ├── __init__.py
-│   │   ├── router.py               # FastAPI endpoints for on-chain lookup
-│   │   └── etherscan.py            # Etherscan / BSCScan async client
-│   └── __init__.py
-├── main.py                         # App factory + entry point
-├── requirements.txt
-└── README.md
-```
+| User | Why they need CryptoComply |
+|------|---------------------------|
+| Stablecoin payment startups | USDT/USDC cross-border transfers – affordable monitoring |
+| Small remittance corridors | Velocity & country risk checks without a compliance team |
+| Local crypto on/off-ramps | AUSTRAC-ready transaction monitoring |
+| DeFi front-ends | Block known mixer addresses & high-risk wallets |
+| Open-source crypto projects | Show regulators a transparent AML baseline |
 
-### System Architecture
+---
+
+## 🧠 Architecture
 
 <div align="center">
   <img src="assets/architecture.png" alt="CryptoComply system architecture diagram" width="100%"/>
 </div>
 
+```mermaid
+flowchart LR
+    Client[Your App] -->|POST /transactions/score| API[FastAPI]
+    API --> Rules[Rules Engine]
+    Rules -->|fetch history| BC[Blockchain API\nEtherscan/BSCScan]
+    Rules -->|risk score| API
+    API -->|alerts| Webhook[Your Webhook]
+
+    subgraph Storage
+        AlertsDB[(Alert Store\nin-memory/SQLite)]
+    end
+    API --> AlertsDB
+```
+
 ---
 
-## Setup & Installation
+## 🚀 Quick Start
 
-### Prerequisites
+### With Docker (recommended)
 
-- Python **3.11+**
-- An Etherscan API key (free at https://etherscan.io/register) – optional but recommended
+```bash
+docker run -p 8000:8000 \
+  -e ETHERSCAN_API_KEY=your_etherscan_key \
+  ghcr.io/jhingun1/cryptocomply:latest
+```
 
-### 1 – Clone and install dependencies
+### Local installation
 
 ```bash
 git clone https://github.com/Jhingun1/Cryptocomply.git
 cd Cryptocomply
+python -m venv venv
+source venv/bin/activate   # or `venv\Scripts\activate` on Windows
 pip install -r requirements.txt
+cp .env.example .env
+# Edit .env with your ETHERSCAN_API_KEY
+uvicorn main:app --reload
 ```
 
-### 2 – Configure environment variables
-
-Create a `.env` file or export variables in your shell:
-
-```bash
-# Blockchain API keys (free tier)
-ETHERSCAN_API_KEY=your_etherscan_key_here
-BSCSCAN_API_KEY=your_bscscan_key_here   # optional
-
-# Chain used by default (ethereum | bsc)
-DEFAULT_CHAIN=ethereum
-
-# Server settings (optional)
-HOST=0.0.0.0
-PORT=8000
-
-# CORS origins – comma-separated (default: all)
-CORS_ORIGINS=*
-```
-
-`python-dotenv` will load `.env` automatically if the file exists.
+The API will be available at **http://localhost:8000**.  
+Interactive docs: **http://localhost:8000/docs** (Swagger UI) or **http://localhost:8000/redoc**
 
 ---
 
-## Running the API
-
-```bash
-# Development (auto-reload)
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-
-# Or via Python directly
-python main.py
-
-# Production (e.g. 4 workers)
-uvicorn main:app --workers 4 --host 0.0.0.0 --port 8000
-```
-
-Open the interactive docs at **http://localhost:8000/docs** (Swagger UI) or
-**http://localhost:8000/redoc**.
-
----
-
-## API Reference
+## 📡 API Reference
 
 ### Transaction Monitoring
 
 | Method | Path | Description |
 |--------|------|-------------|
-| `POST` | `/transactions/score` | Score a transaction (0-100) and list triggered rules |
+| `POST` | `/transactions/score` | Score a transaction (0–100) and list triggered rules |
 | `GET` | `/transactions/alerts` | Get recent flagged transactions |
 | `DELETE` | `/transactions/alerts` | Clear all alerts (dev/test use) |
 
@@ -180,7 +165,7 @@ Open the interactive docs at **http://localhost:8000/docs** (Swagger UI) or
 
 ---
 
-## API Examples
+## 📋 API Examples
 
 ### Score a transaction (curl)
 
@@ -286,7 +271,37 @@ curl "http://localhost:8000/blockchain/token-transfers/0xde0B295669a9FD93d5F28D9
 
 ---
 
-## Extending Custom Rules
+## ⚙️ Configuration
+
+Environment variables (`.env` file or system environment):
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `ETHERSCAN_API_KEY` | *(none)* | Required for Ethereum history |
+| `BSCSCAN_API_KEY` | *(none)* | Required for BSC history |
+| `DEFAULT_CHAIN` | `ethereum` | Default chain for blockchain lookups (`ethereum` \| `bsc`) |
+| `HOST` | `0.0.0.0` | Server bind host |
+| `PORT` | `8000` | Server bind port |
+| `CORS_ORIGINS` | `*` | Comma-separated allowed origins |
+
+`python-dotenv` loads `.env` automatically if present. Copy `.env.example` to `.env` to get started.
+
+---
+
+## 🔌 Integrations
+
+| Service | Status | Notes |
+|---------|--------|-------|
+| Etherscan | ✅ Supported | Free tier included |
+| BSCScan | ✅ Supported | Free tier included |
+| Chainalysis | 🚧 Planned | Paid premium connector |
+| Elliptic | 🚧 Planned | Paid premium connector |
+| Sumsub (KYC) | 🚧 Planned | Drop-in replacement for stub |
+| Persona (KYC) | 🚧 Planned | Drop-in replacement for stub |
+
+---
+
+## 🔧 Extending Custom Rules
 
 All rules are defined in `app/rules/rules.json`. No code changes are required to add new rules.
 
@@ -346,7 +361,7 @@ Edit `app/rules/country_risk.json`:
 
 ---
 
-## Blockchain Integration
+## ⛓️ Blockchain Integration
 
 The Etherscan client (`app/blockchain/etherscan.py`) exposes two async functions:
 
@@ -368,30 +383,71 @@ keeping the same function signatures.
 
 ---
 
-## License
+## 🧪 Testing
 
-This project is licensed under the **MIT License** – see below.
+Run unit tests:
 
+```bash
+pytest tests/ --cov=app --cov-report=term-missing
 ```
-MIT License
 
-Copyright (c) 2024 CryptoComply Contributors
+Or using Docker:
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+```bash
+docker build -t cryptocomply-test .
+docker run cryptocomply-test pytest
 ```
+
+---
+
+## 🗺️ Roadmap
+
+- [x] Basic rules engine (velocity, threshold, country, blacklist)
+- [x] Etherscan integration
+- [x] BSCScan integration
+- [x] Docker support
+- [ ] Webhook alerts
+- [ ] Persistent storage (SQLite, PostgreSQL)
+- [ ] Real-time WebSocket streaming for alerts
+- [ ] Pre-built sanction lists (OFAC, UN, AUSTRAC)
+- [ ] Admin dashboard (React + FastAPI)
+- [ ] Terraform module for AWS/GCP deployment
+- [ ] Premium rule packs (machine-learning based)
+
+---
+
+## 🤝 Contributing
+
+Contributions of all kinds are welcome – bug reports, feature requests, documentation improvements, and code.
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/amazing`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing`)
+5. Open a Pull Request
+
+Run tests locally before submitting:
+
+```bash
+pytest tests/
+```
+
+---
+
+## 📄 License
+
+CryptoComply is open source under the **MIT License** – see [LICENSE](LICENSE) for details.
+
+---
+
+## 💖 Support
+
+If CryptoComply saves you compliance costs or helps you sleep better at night, consider:
+
+- ⭐ **Starring this repo** – it helps others discover it
+- 🐛 **Opening issues** – bug reports and feature ideas are always welcome
+- 🤝 **Contributing** – see the section above
+
+---
+
+Built with ❤️ for compliant crypto startups everywhere.
