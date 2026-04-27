@@ -66,9 +66,18 @@ targeting small crypto and fintech startups (stablecoin apps, DeFi dashboards, p
 | **KYC/KYB Stub** | In-memory identity verification simulation; swappable for a real provider |
 | **Blockchain Client** | Fetches transaction history from Etherscan or BSCScan (free API tier) |
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/837fc408-88ab-42e2-885b-e04f54346974" alt="CryptoComply product overview" width="90%"/>
+</div>
+
 ---
 
 ## 🎯 Who is this for?
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/e6f011ea-1c45-493d-8788-9bd72739d36b" alt="CryptoComply use cases" width="90%"/>
+</div>
+<br/>
 
 | User | Why they need CryptoComply |
 |------|---------------------------|
