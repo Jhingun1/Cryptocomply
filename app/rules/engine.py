@@ -201,6 +201,10 @@ def _check_threshold_cumulative(
     tx_ts = _parse_ts(tx.get("timestamp"))
     cutoff = tx_ts - datetime.timedelta(seconds=window_sec)
 
+    # Apply currency filter to current tx first; bail early if it doesn't match
+    if currency and tx.get("currency", "").upper() != currency.upper():
+        return None
+
     total = float(tx.get("amount", 0))
     for t in history:
         if _parse_ts(t.get("timestamp")) < cutoff:
@@ -210,10 +214,6 @@ def _check_threshold_cumulative(
         if currency and t.get("currency", "").upper() != currency.upper():
             continue
         total += float(t.get("amount", 0))
-
-    # Apply currency filter to current tx
-    if currency and tx.get("currency", "").upper() != currency.upper():
-        return None
 
     if total > threshold:
         msg = rule["message"].format(threshold=threshold, currency=currency or "ANY")

@@ -1,8 +1,14 @@
-# CryptoComply – AML/KYC Orchestration API
+<div align="center">
+  <img src="assets/banner.png" alt="CryptoComply banner" width="100%"/>
+</div>
+
+<div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green.svg)](https://fastapi.tiangolo.com/)
+
+</div>
 
 A lightweight, open-source **AML/KYC orchestration API** built with FastAPI,
 targeting small crypto and fintech startups (stablecoin apps, DeFi dashboards, payment processors).
@@ -24,6 +30,11 @@ targeting small crypto and fintech startups (stablecoin apps, DeFi dashboards, p
 ---
 
 ## Features
+
+<div align="center">
+  <img src="assets/features.png" alt="CryptoComply feature blocks" width="90%"/>
+</div>
+<br/>
 
 | Module | Description |
 |--------|-------------|
@@ -64,6 +75,12 @@ CryptoComply/
 ├── requirements.txt
 └── README.md
 ```
+
+### System Architecture
+
+<div align="center">
+  <img src="assets/architecture.png" alt="CryptoComply system architecture diagram" width="100%"/>
+</div>
 
 ---
 
@@ -156,6 +173,10 @@ Open the interactive docs at **http://localhost:8000/docs** (Swagger UI) or
 |--------|------|
 | `GET` | `/` |
 | `GET` | `/health` |
+
+<div align="center">
+  <img src="assets/readme_preview.png" alt="CryptoComply README preview panel" width="60%"/>
+</div>
 
 ---
 
