@@ -1,0 +1,84 @@
+{
+  "rules": [
+    {
+      "id": "velocity_check",
+      "name": "High Transaction Velocity",
+      "description": "More than 5 transactions from the same address within 1 hour",
+      "enabled": true,
+      "type": "velocity",
+      "params": {
+        "max_count": 5,
+        "window_seconds": 3600
+      },
+      "risk_score": 40,
+      "alert_level": "HIGH",
+      "message": "High velocity: more than {max_count} transactions in {window_seconds}s window"
+    },
+    {
+      "id": "large_amount_24h",
+      "name": "Large Cumulative Amount (24h)",
+      "description": "Cumulative transaction amount exceeds 10,000 USDC in a 24-hour window",
+      "enabled": true,
+      "type": "threshold_cumulative",
+      "params": {
+        "threshold": 10000,
+        "currency": "USDC",
+        "window_seconds": 86400
+      },
+      "risk_score": 35,
+      "alert_level": "HIGH",
+      "message": "Cumulative amount exceeds {threshold} {currency} in 24h"
+    },
+    {
+      "id": "single_large_tx",
+      "name": "Single Large Transaction",
+      "description": "Single transaction amount exceeds 50,000 units of any currency",
+      "enabled": true,
+      "type": "threshold_single",
+      "params": {
+        "threshold": 50000
+      },
+      "risk_score": 30,
+      "alert_level": "MEDIUM",
+      "message": "Single transaction amount {amount} exceeds threshold of {threshold}"
+    },
+    {
+      "id": "suspicious_counterparty",
+      "name": "Suspicious Counterparty",
+      "description": "Transaction involves a known suspicious address (e.g. mixer service)",
+      "enabled": true,
+      "type": "counterparty_blocklist",
+      "params": {},
+      "risk_score": 80,
+      "alert_level": "CRITICAL",
+      "message": "Address {address} is on the suspicious counterparty blocklist"
+    },
+    {
+      "id": "high_risk_country",
+      "name": "High-Risk Country",
+      "description": "Transaction originates from or involves a high-risk jurisdiction (risk level 3)",
+      "enabled": true,
+      "type": "country_risk",
+      "params": {
+        "min_risk_level": 3
+      },
+      "risk_score": 50,
+      "alert_level": "HIGH",
+      "message": "Country {country} has risk level {risk_level} (threshold: {min_risk_level})"
+    },
+    {
+      "id": "medium_risk_country",
+      "name": "Medium-Risk Country",
+      "description": "Transaction involves a medium-risk jurisdiction (risk level 2)",
+      "enabled": true,
+      "type": "country_risk",
+      "params": {
+        "min_risk_level": 2,
+        "max_risk_level": 2
+      },
+      "risk_score": 20,
+      "alert_level": "MEDIUM",
+      "message": "Country {country} has risk level {risk_level}"
+    }
+  ]
+}
