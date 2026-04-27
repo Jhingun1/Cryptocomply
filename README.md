@@ -3,6 +3,10 @@
 </div>
 
 <div align="center">
+  <img src="https://github.com/user-attachments/assets/13494ef6-dbf5-4af1-9748-98a1427a3aca" alt="CryptoComply overview" width="90%"/>
+</div>
+
+<div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
@@ -62,9 +66,18 @@ targeting small crypto and fintech startups (stablecoin apps, DeFi dashboards, p
 | **KYC/KYB Stub** | In-memory identity verification simulation; swappable for a real provider |
 | **Blockchain Client** | Fetches transaction history from Etherscan or BSCScan (free API tier) |
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/837fc408-88ab-42e2-885b-e04f54346974" alt="CryptoComply product overview" width="90%"/>
+</div>
+
 ---
 
 ## 🎯 Who is this for?
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/e6f011ea-1c45-493d-8788-9bd72739d36b" alt="CryptoComply use cases" width="90%"/>
+</div>
+<br/>
 
 | User | Why they need CryptoComply |
 |------|---------------------------|
@@ -77,6 +90,16 @@ targeting small crypto and fintech startups (stablecoin apps, DeFi dashboards, p
 ---
 
 ## 🧠 Architecture
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/f7917c07-3594-4ee1-aebe-85bc43766061" alt="CryptoComply architecture overview" width="90%"/>
+</div>
+<br/>
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/53a7c186-c8e8-4fd8-8548-dbad45169404" alt="CryptoComply project structure" width="60%"/>
+</div>
+<br/>
 
 <div align="center">
   <img src="assets/architecture.png" alt="CryptoComply system architecture diagram" width="100%"/>
@@ -127,6 +150,11 @@ Interactive docs: **http://localhost:8000/docs** (Swagger UI) or **http://localh
 ---
 
 ## 📡 API Reference
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/0e9b2d9e-c2a5-4959-adbe-fae7748eff74" alt="CryptoComply API overview" width="90%"/>
+</div>
+<br/>
 
 ### Transaction Monitoring
 
