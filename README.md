@@ -3,6 +3,10 @@
 </div>
 
 <div align="center">
+  <img src="https://github.com/user-attachments/assets/13494ef6-dbf5-4af1-9748-98a1427a3aca" alt="CryptoComply overview" width="90%"/>
+</div>
+
+<div align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
@@ -79,6 +83,16 @@ targeting small crypto and fintech startups (stablecoin apps, DeFi dashboards, p
 ## 🧠 Architecture
 
 <div align="center">
+  <img src="https://github.com/user-attachments/assets/f7917c07-3594-4ee1-aebe-85bc43766061" alt="CryptoComply architecture overview" width="90%"/>
+</div>
+<br/>
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/53a7c186-c8e8-4fd8-8548-dbad45169404" alt="CryptoComply project structure" width="60%"/>
+</div>
+<br/>
+
+<div align="center">
   <img src="assets/architecture.png" alt="CryptoComply system architecture diagram" width="100%"/>
 </div>
 
@@ -127,6 +141,11 @@ Interactive docs: **http://localhost:8000/docs** (Swagger UI) or **http://localh
 ---
 
 ## 📡 API Reference
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/0e9b2d9e-c2a5-4959-adbe-fae7748eff74" alt="CryptoComply API overview" width="90%"/>
+</div>
+<br/>
 
 ### Transaction Monitoring
 
