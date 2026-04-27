@@ -1,6 +1,4 @@
-<div align="center">
-  <img src="assets/banner.png" alt="CryptoComply banner" width="100%"/>
-</div>
+
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/13494ef6-dbf5-4af1-9748-98a1427a3aca" alt="CryptoComply overview" width="90%"/>
